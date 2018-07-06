@@ -1,0 +1,19 @@
+$bg-color: #3b9994;
+$box-color: #ff88ae;
+
+body {
+
+  	background-image: url('./images/gift.svg');
+	background-color: $bg-color;
+
+	.box {
+		background-color: $box-color;
+	}
+
+	.homeIcon{
+		height: 64px;
+	    width: 64px;
+	    background-image: url('./images/home.png');
+	    background-repeat: no-repeat;
+	}
+}

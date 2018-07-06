@@ -1,5 +1,5 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
 	entry: './src/app.js',
@@ -8,13 +8,30 @@ module.exports = {
 		filename: 'app.bundle.js'
 	},
 	module:{
-    	rules:[
-    		{
-        		test:/\.css$/,
-        		use:['style-loader','css-loader']
-    		}
-   		]
-	},
+        rules:[
+            {
+                test: /\.scss$/,
+        		loader: 'style-loader!css-loader!sass-loader'
+            }, {
+            	test: /\.(png|jp(e*)g)$/,
+            	loader: 'url-loader',
+            	options: { 
+                    limit: 8000,
+                    name: 'images/[hash]-[name].[ext]'
+                } 
+            },  {
+                test: /\.svg$/,
+                loader: 'file-loader'
+            },  {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    presets: ['es2015']
+                }
+            }
+        ]
+    },
 	devServer: {
         contentBase: path.join(__dirname, "./dist/"),
         port: 9000
