@@ -11,18 +11,43 @@ module.exports = {
         rules:[
             {
                 test: /\.scss$/,
-        		loader: 'style-loader!css-loader!sass-loader'
-            }, {
+                use : [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        // options: {
+                        //     modules: true,
+                        //     importLoaders: 1,
+                        //     localIdentName: '[path]__[name]__[local]__[hash:base64:5]'
+                        // }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            plugins: [
+                                require('autoprefixer')({
+                                    'browsers': ['> 1%', 'last 2 versions']
+                                })
+                            ]
+                        }
+                    },
+                    'sass-loader',
+                ]
+            }, 
+            {
             	test: /\.(png|jp(e*)g)$/,
             	loader: 'url-loader',
             	options: { 
                     limit: 8000,
                     name: 'images/[hash]-[name].[ext]'
                 } 
-            },  {
+            },  
+            {
                 test: /\.svg$/,
                 loader: 'file-loader'
-            },  {
+            },  
+            {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
